@@ -1,20 +1,20 @@
 import os
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
+
+TOKEN = os.getenv("BOT_TOKEN")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "🔥 SMOCKERS ON BOS!\nBot Cupang Medan udah aktif!\n\nKetik /menu buat liat stok"
-    )
+    await update.message.reply_text("🔥 SMOCKERS ON BOS!\nBot Cupang Medan aktif!\nKetik /menu")
 
 async def menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "📦 MENU SMOCKERS:\n- Cupang Halfmoon\n- Cupang Plakat\n- Cupang Avatar\n\nChat admin: @username lu"
-    )
+    await update.message.reply_text("📦 MENU:\n- Halfmoon\n- Plakat\n- Avatar")
 
-token = os.getenv("BOT_TOKEN")
-app = ApplicationBuilder().token(token).build()
+async def balas(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(f"Lu: {update.message.text}")
+
+app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("menu", menu))
-print("Bot jalan...")
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, balas))
 app.run_polling()
