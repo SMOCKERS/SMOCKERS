@@ -1,2 +1,2 @@
 python-telegram-bot==22.3
-pybit==5.7.0
+python-binance==1.0.29
