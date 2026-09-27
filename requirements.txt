@@ -1,3 +1,0 @@
-python-telegram-bot==22.3
-python-binance==1.0.29
-pycryptodome==3.20.0
